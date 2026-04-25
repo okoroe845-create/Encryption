@@ -504,6 +504,7 @@ openssl enc -aes-256-cbc \
     -pass file:data/aes_key.bin \
     -pbkdf2
 ```
+<img width="1366" height="739" alt="image" src="https://github.com/user-attachments/assets/085c3d4f-b5bc-4e8c-9521-06c885babafa" />
 
 **Breaking down the flags:**
 
@@ -548,6 +549,7 @@ xxd data/encrypted.enc | head -5
 ```bash
 openssl x509 -in server/server.crt -pubkey -noout > server/server_pubkey.pem
 ```
+<img width="1366" height="739" alt="image" src="https://github.com/user-attachments/assets/52a5d0ec-688d-47dc-9b56-d072bfece180" />
 
 **Encrypt the AES session key with the RSA public key:**
 ```bash
@@ -557,6 +559,7 @@ openssl pkeyutl -encrypt \
     -in data/aes_key.bin \
     -out data/aes_key_encrypted.bin
 ```
+<img width="1366" height="739" alt="image" src="https://github.com/user-attachments/assets/fd60c2da-85d6-4cb7-aab5-1d19de66cb71" />
 
 **Breaking down the flags:**
 
@@ -628,6 +631,7 @@ openssl pkeyutl -decrypt \
     -in data/aes_key_encrypted.bin \
     -out data/aes_key_recovered.bin
 ```
+<img width="1366" height="739" alt="image" src="https://github.com/user-attachments/assets/592b73e8-cbc8-4a53-9cdb-7bef625d48a6" />
 
 Only the holder of `server.key` can perform this operation. The RSA private key decrypts what the RSA public key encrypted. This is the foundation of asymmetric cryptography.
 
@@ -639,6 +643,7 @@ openssl enc -aes-256-cbc -d \
     -pass file:data/aes_key_recovered.bin \
     -pbkdf2
 ```
+<img width="1366" height="739" alt="image" src="https://github.com/user-attachments/assets/473f266d-6efd-49fa-8ef6-6fe09fc8faee" />
 
 The `-d` flag instructs OpenSSL to perform decryption instead of encryption. The same AES key and the same CBC IV (stored in the encrypted file header by OpenSSL) are used to reverse the encryption process block by block.
 
@@ -649,9 +654,7 @@ cat data/decrypted.txt
 
 **Expected output:**
 ```
-This is the confidential message encrypted using hybrid PKI-based encryption.
-Project by Okoro Francis Emmanuel — New Horizon Nigeria 2024.
-This message is protected by AES-256-CBC encryption with an RSA-2048 wrapped key.
+My Message
 ```
 
 The original plaintext is fully recovered.
@@ -668,6 +671,7 @@ openssl dgst -sha256 -out hashes/plaintext.sha256 data/plaintext.txt
 cat hashes/plaintext.sha256
 # Output: SHA2-256(data/plaintext.txt)= [64-character hex hash]
 ```
+<img width="1366" height="739" alt="image" src="https://github.com/user-attachments/assets/51cdf8bc-f31e-4c68-bfc3-628054fb6003" />
 
 **Generate SHA-256 hash of the decrypted file:**
 ```bash
@@ -675,12 +679,15 @@ openssl dgst -sha256 -out hashes/decrypted.sha256 data/decrypted.txt
 cat hashes/decrypted.sha256
 # Output: SHA2-256(data/decrypted.txt)= [64-character hex hash]
 ```
+<img width="1366" height="739" alt="image" src="https://github.com/user-attachments/assets/9fde3c1e-7c99-4320-b4fc-64372ab9bf4c" />
 
 **Compare the two hashes:**
 ```bash
 diff hashes/plaintext.sha256 hashes/decrypted.sha256
 # No output = files are identical
 ```
+<img width="1366" height="739" alt="image" src="https://github.com/user-attachments/assets/24ca21c7-2ae9-4567-9103-fd5fd65927a4" />
+
 
 If both hashes are identical, it is **cryptographically proven** that:
 - The decryption process succeeded completely
@@ -816,6 +823,7 @@ openssl dgst -sha256 -sign server/server.key \
 openssl dgst -sha256 -verify server/server_pubkey.pem \
     -signature data/message.sig data/plaintext.txt
 ```
+<img width="1366" height="739" alt="image" src="https://github.com/user-attachments/assets/0f7c8699-afeb-489f-8811-4948575ee9c4" />
 
 **Phase 3 — Certificate Chain with Intermediate CA**
 Build a three-tier PKI hierarchy:
