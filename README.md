@@ -3,8 +3,8 @@
 
 
 
-# 🔐 Text Encryption Project — AES-256-CBC + RSA-2048 + Hybrid Encryption
-### Performed by: Okoro Francis Emmanuel | New Horizon Nigeria | 
+# 🔐 Encryption Project — AES-256-CBC + RSA-2048 + Hybrid Encryption
+### Performed by: Okoro Francis Emmanuel | New Horizon | 
 
 <div align="center">
 
